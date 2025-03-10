@@ -1,0 +1,201 @@
+.metric-gauge-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #1b1b1b;
+}
+
+.metric-gauge {
+  position: relative;
+  width: min(100%, 100vh);
+  height: min(100%, 100vw);
+  max-width: min(100%, 100vh);
+  max-height: min(100%, 100vw);
+  border-radius: 50%;
+}
+
+/* Outer rotating ring */
+.gauge-outer-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 1;
+  animation: rotate 20s linear infinite;
+}
+
+/* Middle rotating ring */
+.gauge-middle-ring {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  z-index: 2;
+  animation: rotate-reverse 15s linear infinite;
+}
+
+/* Ring light effects */
+.light-effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+}
+
+/* Inner circle with content */
+.gauge-inner {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background-color: #111936;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 8%;
+  box-sizing: border-box;
+  z-index: 4;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Rotation animations */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* Colors - Green Theme */
+.metric-gauge.green .gauge-outer-ring {
+  background: #0c5f10;
+}
+
+.metric-gauge.green .gauge-middle-ring {
+  background: #2b9c32;
+}
+
+/* Colors - Yellow Theme */
+.metric-gauge.yellow .gauge-outer-ring {
+  background: #8a6300;
+}
+
+.metric-gauge.yellow .gauge-middle-ring {
+  background: #c89900;
+}
+
+/* Colors - Red Theme */
+.metric-gauge.red .gauge-outer-ring {
+  background: #7d1c14;
+}
+
+.metric-gauge.red .gauge-middle-ring {
+  background: #b71c1c;
+}
+
+/* Text sizing */
+.metric-gauge.text-small .value {
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.metric-gauge.text-small .percent-change {
+  font-size: 12px;
+  margin: 2px 0;
+}
+
+.metric-gauge.text-small .title {
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.metric-gauge.text-medium .value {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.metric-gauge.text-medium .percent-change {
+  font-size: 14px;
+  margin: 3px 0;
+}
+
+.metric-gauge.text-medium .title {
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.metric-gauge.text-large .value {
+  font-size: 32px;
+  line-height: 1.3;
+}
+
+.metric-gauge.text-large .percent-change {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.metric-gauge.text-large .title {
+  font-size: 14px;
+  margin-top: 4px;
+  max-width: 100%;
+}
+
+/* Value styling */
+.value {
+  font-weight: bold;
+  margin: 0;
+}
+
+.metric-gauge.green .value {
+  color: #8bc34a;
+}
+
+.metric-gauge.yellow .value {
+  color: #ffeb3b;
+}
+
+.metric-gauge.red .value {
+  color: #f44336;
+}
+
+/* Title styling */
+.title {
+  color: #fff;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow: hidden;
+  padding: 0 5px;
+}
+
+/* Percent change indicator */
+.percent-change {
+  font-weight: bold;
+}
+
+.percent-change.positive {
+  color: #4caf50;
+}
+
+.percent-change.negative {
+  color: #f44336;
+}
+
+.percent-change.neutral {
+  color: #ffc107;
+}

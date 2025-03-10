@@ -1,0 +1,1 @@
+npx retool-ccl deploy
