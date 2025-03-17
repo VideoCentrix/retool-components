@@ -13,6 +13,7 @@ export const MetricGauge: FC = () => {
   const [inverseThresholds] = Retool.useStateBoolean({ name: 'inverseThresholds', initialValue: false })
   const [textSize] = Retool.useStateString({ name: 'textSize', initialValue: 'medium' })
   const [unit] = Retool.useStateString({ name: 'unit', initialValue: '' })
+  const [showPercentChange] = Retool.useStateBoolean({ name: 'showPercentChange', initialValue: true })
 
   // Configure component default size
   Retool.useComponentSettings({
@@ -57,8 +58,18 @@ export const MetricGauge: FC = () => {
     return 'neutral'
   }, [percentChange, inverseThresholds])
 
-  // Format display value (add units if provided)
+  // Format display value (convert seconds to minutes+seconds if unit is 's')
   const displayValue = useMemo(() => {
+    if (unit === 's') {
+      const minutes = Math.floor(value / 60);
+      const seconds = Math.floor(value % 60);
+      
+      if (minutes > 0) {
+        return `${minutes}m ${seconds}s`;
+      } else {
+        return `${seconds}s`;
+      }
+    }
     return `${value}${unit}`;
   }, [value, unit]);
 
@@ -78,9 +89,11 @@ export const MetricGauge: FC = () => {
         {/* Inner content circle - stays stationary */}
         <div className="gauge-inner">
           <div className="value">{displayValue}</div>
-          <div className={`percent-change ${changeDirection}`}>
-            {formattedPercentChange}
-          </div>
+          {showPercentChange && (
+            <div className={`percent-change ${changeDirection}`}>
+              {formattedPercentChange}
+            </div>
+          )}
           <div className="title">{title}</div>
         </div>
       </div>
